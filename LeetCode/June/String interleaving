@@ -1,0 +1,37 @@
+
+int dp[101][101];
+int n, m, o;
+string s1, s2, s3;
+
+class Solution {
+public:
+    
+    bool solve(int i, int j, int k){
+        if (i == n and j ==  m) 
+            if (o == k) return 1;
+            else return 0;
+        
+        if (dp[i][j] != -1) return dp[i][j];
+        
+        int ans = 0;
+        
+        if (i < n){
+            if (s1[i] == s3[k])
+                ans |= solve(i + 1, j, k + 1);
+        }
+        if (j < m){
+            if (s2[j] == s3[k])
+                ans |= solve(i, j + 1, k + 1);
+        }
+        
+        return dp[i][j] = ans;
+    }
+    
+    bool isInterleave(string s11, string s22, string s33) {
+        s1 = s11, s2 = s22, s3 = s33;
+        n = s1.size(), m = s2.size(), o = s3.size();
+        memset(dp, -1, sizeof dp);
+        bool ans = solve(0, 0, 0);
+        return ans;
+    }
+};
